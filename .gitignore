@@ -1,0 +1,5 @@
+cau_rong
+cau_rong.exe
+build/
+*.ppm
+*.o
