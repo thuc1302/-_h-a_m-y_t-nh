@@ -68,3 +68,22 @@ inline mat4 lookAt(vec3 eye, vec3 center, vec3 up) {
     r.at(2, 0) = -f.x; r.at(2, 1) = -f.y; r.at(2, 2) = -f.z; r.at(2, 3) = dot(f, eye);
     return r;
 }
+
+// Ma tran chieu song song (dung cho shadow map cua anh sang mat troi)
+inline mat4 ortho(float l, float r, float b, float t, float n, float f) {
+    mat4 m;
+    m.at(0, 0) = 2 / (r - l);
+    m.at(1, 1) = 2 / (t - b);
+    m.at(2, 2) = -2 / (f - n);
+    m.at(0, 3) = -(r + l) / (r - l);
+    m.at(1, 3) = -(t + b) / (t - b);
+    m.at(2, 3) = -(f + n) / (f - n);
+    return m;
+}
+
+// Nhan ma tran voi diem (w = 1)
+inline vec3 transformPoint(mat4 m, vec3 p) {
+    return {m.at(0, 0) * p.x + m.at(0, 1) * p.y + m.at(0, 2) * p.z + m.at(0, 3),
+            m.at(1, 0) * p.x + m.at(1, 1) * p.y + m.at(1, 2) * p.z + m.at(1, 3),
+            m.at(2, 0) * p.x + m.at(2, 1) * p.y + m.at(2, 2) * p.z + m.at(2, 3)};
+}
